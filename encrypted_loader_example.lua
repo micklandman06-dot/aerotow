@@ -1,7 +1,7 @@
 -- Encrypted Aerotow Loader
 local HttpService = game:GetService("HttpService")
 
-local ENCRYPTION_KEY = "your_secret_key_here" -- Change this to a secret key
+local ENCRYPTION_KEY = "676776767676776766767676767677" -- Change this to a secret key
 local ENCRYPTED_CODE_URL = "https://your-server.com/encrypted-aerotow.lua" -- Host encrypted code here
 
 local function decrypt(code, key)
