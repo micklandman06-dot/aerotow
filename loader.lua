@@ -1,6 +1,6 @@
 local HttpService = game:GetService("HttpService")
 
-local LICENSE_URL = "https://raw.githubusercontent.com/micklandman06-dot/aerotow/main/licenses.json"
+local LICENSE_URL = "https://api.github.com/repos/micklandman06-dot/aerotow/contents/licenses.json"
 local ENCRYPTED_CORE_URL = "https://raw.githubusercontent.com/micklandman06-dot/aerotow/main/aerotow_encrypted.lua"
 
 local PLACE_ID = tostring(game.PlaceId)
@@ -43,7 +43,11 @@ if not licenseRaw then
 	return
 end
 
-local licenses = HttpService:JSONDecode(licenseRaw)
+local licenseData = HttpService:JSONDecode(licenseRaw)
+local licenseContent = licenseData.content
+local decodedContent = HttpService:JSONDecode(HttpService:JSONDecode('"' .. licenseContent .. '"'))
+
+local licenses = decodedContent
 local license = licenses[PLACE_ID]
 
 if not license then
