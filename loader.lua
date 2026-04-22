@@ -72,10 +72,19 @@ end
 local decryptedCode = decrypt(encryptedCode, ENCRYPTION_KEY)
 
 -- 🚀 Run decrypted script
-local func = loadstring(decryptedCode)
-if func then
-	func()()
+if decryptedCode and #decryptedCode > 0 then
+	local success, result = pcall(function()
+		local func = loadstring(decryptedCode)
+		if func then
+			func()()
+		else
+			warn("[Aerotow] Loadstring returned nil")
+		end
+	end)
+	if not success then
+		warn("[Aerotow] Error running script: " .. tostring(result))
+	end
 else
-	warn("[Aerotow] Loadstring error - decryption failed")
+	warn("[Aerotow] Decrypted code is empty")
 end</content>
 <parameter name="filePath">/workspaces/aerotow/loader.lua

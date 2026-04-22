@@ -65,10 +65,19 @@ end
 local decryptedServerCode = decrypt(encryptedServerCode, ENCRYPTION_KEY)
 
 -- 🚀 Run decrypted server script
-local serverFunc = loadstring(decryptedServerCode)
-if serverFunc then
-	serverFunc()
-	print("[Aerotow Server] Successfully loaded and started")
+if decryptedServerCode and #decryptedServerCode > 0 then
+	local success, result = pcall(function()
+		local serverFunc = loadstring(decryptedServerCode)
+		if serverFunc then
+			serverFunc()
+			print("[Aerotow Server] Successfully loaded and started")
+		else
+			warn("[Aerotow Server] Loadstring returned nil")
+		end
+	end)
+	if not success then
+		warn("[Aerotow Server] Error running script: " .. tostring(result))
+	end
 else
-	warn("[Aerotow Server] Loadstring error - decryption failed")
+	warn("[Aerotow Server] Decrypted code is empty")
 end
